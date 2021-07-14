@@ -1,3 +1,6 @@
 [submodule "lib/ds-test"]
 	path = lib/ds-test
 	url = https://github.com/dapphub/ds-test
+[submodule "erc20-example"]
+	path = erc20-example
+	url = git@github.com:MrChico/erc20-example.git
