@@ -175,6 +175,14 @@
 
 \begin{frame}[fragile]
 \begin{center}
+\begin{figure}
+	\includegraphics[scale=0.25]{images/erc777_fail}
+\end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
 \begin{itemize}
 \item Mythril - symbolic execution
 \item hevm - symbolic execution, invariant fuzzing
@@ -407,6 +415,84 @@ SMTChecker's inductive invariant for the loop before the assertion
 \begin{figure}
 \includegraphics[scale=0.2]{images/deposit_pass_smtchecker_proof}
 \end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+Prove ERC777 property in the presence of external calls
+\begin{figure}
+	\includegraphics[scale=0.3]{images/erc777_fail}
+\end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+SMTChecker says that the property does not hold
+\begin{figure}
+	\includegraphics[scale=0.23]{images/erc777_fail_smtchecker_cex}
+\end{figure}
+- Remove strings (hard for counterexamples)
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+Let's test that
+\begin{figure}
+	\includegraphics[scale=0.25]{images/erc777_fail_hevm_test_code}
+\end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+Property is indeed broken
+\begin{figure}
+	\includegraphics[scale=0.2]{images/erc777_fail_hevm_test}
+\end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+We can forbid reentrancy
+\begin{figure}
+	\includegraphics[scale=0.25]{images/erc777_pass_mutex_smtchecker}
+\end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+Are we safe now? Reentrancy guard blocks the tx before the assertion failure
+\begin{figure}
+	\includegraphics[scale=0.2]{images/erc777_fail_hevm_test_mutex}
+\end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+SMTChecker proves that now the assertions are safe
+\begin{figure}
+	\includegraphics[scale=0.23]{images/erc777_pass_smtchecker_invariants}
+\end{figure}
+$lock \implies (\_totalSupply = \_totalSupply')$
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+Conclusions
+\begin{itemize}
+\item Automated FV tools can be quite powerful but...
+\item No automated tool will do the job everytime
+\item FV is still an expert domain
+\item Specific tool knowledge is required to extract full potential
+\item Playing with the tool is essential to get good results
+\end{itemize}
 \end{center}
 \end{frame}
 
