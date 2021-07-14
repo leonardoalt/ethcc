@@ -485,6 +485,121 @@ $lock \implies (\_totalSupply = \_totalSupply')$
 
 \begin{frame}[fragile]
 \begin{center}
+SMTChecker internals
+\begin{figure}
+	\includegraphics[scale=0.4]{images/binary_machine_code}
+\end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+{\small
+\begin{align*}
+error = 0 \land x = 0  & \implies constructor(error, x) \\
+error = 0 \land x = x' & \implies setOneEntry(error, x, x') \\
+setOneEntry(error, x, x') & \implies setOneSummary(error, x, 1) \\
+error = 0 \land x = x' & \implies setZeroEntry(error, x, x') \\
+setZeroEntry(error, x, x') & \implies setZeroSummary(error, x, 0) \\
+error = 0 \land x = x' & \implies invariantEntry(error, x, x') \\
+invariantEntry(error, x, x') \land x \ge 2 \land errorCode = 1 & \implies invariantSummary(errorCode, x, x') \\
+invariantEntry(error, x, x') \land x < 2 & \implies invariantSummary(error, x, 1) \\
+\end{align*}
+}%
+\end{frame}
+
+\begin{frame}[fragile]
+{\small
+\begin{align*}
+error = 0 \land	constructor(error, x) & \implies interface(x) \\
+interface(x) \land setOneSummary(error, x, x') \land error = 0 & \implies interface(x') \\
+interface(x) \land setOneSummary(error, x, x') \land error > 0 & \implies errorTarget(error) \\
+interface(x) \land setZeroSummary(error, x, x') \land error = 0 & \implies interface(x') \\
+interface(x) \land setZeroSummary(error, x, x') \land error > 0 & \implies errorTarget(error) \\
+interface(x) \land invariantSummary(error, x, x') \land error = 0 & \implies interface(x') \\
+interface(x) \land invariantSummary(error, x, x') \land error > 0 & \implies errorTarget(error) \\
+\end{align*}
+}%
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+Counterexample graph
+\begin{figure}
+	\includegraphics[scale=0.4]{images/binary_machine_cex_graph}
+\end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+Correct code
+\begin{figure}
+	\includegraphics[scale=0.4]{images/binary_machine_code_pass}
+\end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+Inductive invariants\\
+\;\\
+$interface(e, x) = x < 2$\\
+$invariantSummary(e, x, x') = x' = 0 \lor x' = 1$\\
+$constructorSummary(e, x) = e = 0 \land x' = 0$\\
+$setOneSummary(e, x, x') = e = 0 \land x' = 1$\\
+$setZeroSummary(e, x, x') = e = 0 \land x' = 0$\\
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+SMTChecker internals - External calls
+\begin{figure}
+	\includegraphics[scale=0.3]{images/extcall_fail_code}
+\end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+New rules help with synthesis of externally called unknown functions
+{\small
+\begin{align*}
+error = 0 \implies nondetInterface(error, x, x') \\
+error = 0 \land	nondetInterface(error, x, x') \land setX(error', x', x'') \implies nondetInterface(error', x, x'') \\
+error = 0 \land	nondetInterface(error, x, x') \land xMut(error', x', x'') \implies nondetInterface(error', x, x'') \\
+\end{align*}
+}%
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+Counterexample graph synthesizing external calls
+\begin{figure}
+	\includegraphics[scale=0.4]{images/extcall_fail_cex_graph}
+\end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+SMTChecker internals - External calls
+\begin{figure}
+	\includegraphics[scale=0.3]{images/extcall_pass_code}
+\end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+Inductive invariants and external call properties\\
+\;\\
+$externalCallUnknown(e, x, x') = (x = 0 \implies e = 0) \land (x = 0 \implies x' = 0)$\\
+$interface(x) = x = 0$
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
 Conclusions
 \begin{itemize}
 \item Automated FV tools can be quite powerful but...
