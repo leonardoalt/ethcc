@@ -49,7 +49,7 @@
 % Sets the footer `devcon v` on the bottom right.
 % Change `devcon v` text color here.
 \setbeamercolor{frame footer}{fg=gray}
-\setbeamertemplate{frame footer}{ethcc4}
+\setbeamertemplate{frame footer}{ethcc4 - github.com/leonardoalt/ethcc}
 
 % Sets the new fonts.
 \setsansfont{Circular Std Bold}
@@ -94,8 +94,8 @@
 }
 
 % Change presentation data here.
-\title{{\huge Automated formal verification:\\How far can we go?}}
-\author{{\large Leonardo Alt \& Martin Lundfall}}
+\title{{\huge Fully Automated Formal Verification:\\How far can we go?}}
+\author{{\large Leo Alt \& Martin Lundfall}}
 % Change date here.
 % Empty date removes it from the frame.
 % \date{\today} prints compilation date.
@@ -176,7 +176,7 @@
 \begin{frame}[fragile]
 \begin{center}
 \begin{figure}
-	\includegraphics[scale=0.25]{images/erc777_fail}
+	\includegraphics[scale=0.35]{images/erc777_fail}
 \end{figure}
 \end{center}
 \end{frame}
@@ -255,7 +255,7 @@ Use each tool on each example, first automatically then tweaking parameters and 
 \begin{center}
 Prove functional correctness of transfer function
 \begin{figure}
-	\includegraphics[scale=0.3]{images/token_pass}
+	\includegraphics[scale=0.25]{images/token_pass}
 \end{figure}
 \end{center}
 \end{frame}
@@ -278,7 +278,7 @@ Prove functional correctness of transfer function
 \begin{center}
 Find bug in buggy transfer function
 \begin{figure}
-	\includegraphics[scale=0.25]{images/token_fail}
+	\includegraphics[scale=0.23]{images/token_fail}
 \end{figure}
 \end{center}
 \end{frame}
@@ -301,7 +301,7 @@ Find bug in buggy transfer function
 \begin{center}
 AMM swap functional correctness (?)
 \begin{figure}
-	\includegraphics[scale=0.25]{images/amm_fail}
+	\includegraphics[scale=0.23]{images/amm_fail}
 \end{figure}
 \end{center}
 \end{frame}
@@ -375,7 +375,7 @@ Prove function correctness of deposit
 
 \begin{frame}[fragile]
 \begin{center}
-Prove function correctness of deposit\\
+Prove function correctness of deposit:\\
 No tool could prove that the assertion is not reachable automatically.\\
 \end{center}
 \end{frame}
@@ -384,7 +384,7 @@ No tool could prove that the assertion is not reachable automatically.\\
 \begin{center}
 Modified version for hevm
 \begin{figure}
-\includegraphics[scale=0.25]{images/deposit_hevm_code}
+\includegraphics[scale=0.22]{images/deposit_hevm_code}
 \end{figure}
 \end{center}
 \end{frame}
@@ -459,7 +459,7 @@ Property is indeed broken
 \begin{center}
 We can forbid reentrancy
 \begin{figure}
-	\includegraphics[scale=0.25]{images/erc777_pass_mutex_smtchecker}
+	\includegraphics[scale=0.23]{images/erc777_pass_mutex_smtchecker}
 \end{figure}
 \end{center}
 \end{frame}
