@@ -598,6 +598,47 @@ $interface(x) = x = 0$
 \end{center}
 \end{frame}
 
+
+\begin{frame}[fragile]
+\begin{center}
+hevm internals - Symbolic execution
+\;\\
+Execute EVM while building an AST for symbolic terms\\
+Upon JUMPI, explore both paths add new constraint\\
+Avoid infinite loops by `--max-iterations`\\
+For all end states violating the property, check if constraints are satisfiable
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+hevm internals - Symbolic ds-tests & rpc
+\;\\
+\begin{verbatim}
+data StorageModel
+  = ConcreteS    -- ^ Uses `Concrete` Storage. Reading / Writing from abstract
+                 -- locations causes a runtime failure. Can be nicely combined with RPC.
+
+  | SymbolicS    -- ^ Uses `Symbolic` Storage. Reading / Writing never reaches RPC,
+                 -- but always done using an SMT array with no default value.
+
+  | InitialS     -- ^ Uses `Symbolic` Storage. Reading / Writing never reaches RPC,
+                 -- but always done using an SMT array with 0 as the default value.
+\end{verbatim}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+hevm internals - Equivalence checking
+\;\\
+Make two copies of an abstract VM, differing only in the code of the current contract\\
+Execute both symbolically and take all pairs of endstates\\
+For every pair, check if both constraint sets are satisfiable and if results differ\\
+If no such pair exists, the contracts are equivalent\\
+\end{center}
+\end{frame}
+
 \begin{frame}[fragile]
 \begin{center}
 Conclusions
